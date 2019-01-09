@@ -1,0 +1,28 @@
+is_debug: true
+dir:
+    log: ./logs
+    data: ./data
+    cache: ./cache
+    template: ./templates
+db:
+    host: 
+    port: 
+    user: 
+    password: 
+    dbname: 
+subdomains:
+    api: api.XXX.com
+panel:
+    token_name: access-token
+sns:
+    facebook:
+
+    twitter:
+
+    google:
+
+    gamecenter:
+
+pay:
+    apple_pay:
+        debug: true

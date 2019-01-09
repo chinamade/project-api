@@ -1,0 +1,21 @@
+sdk:
+    prefix: /sdk/{version}/
+    host: "{subdomain}"
+    resource: routes/sdk.yml
+    requirements:
+        subdomain: api.gXXX.com
+    defaults:
+        subdomain: "%app.subdomains.api%"
+        version: 1.0
+panel-api:
+    prefix: /panel-api
+    host: "{subdomain}"
+    resource: "routes/panel-api.yml"
+    requirements:
+        subdomain: api.XXX.com
+    defaults:
+        subdomain: "%app.subdomains.api%"
+home:
+    path: /
+    defaults:
+        _controller: GoldSdk\Api\Controllers\DemoController::testAction

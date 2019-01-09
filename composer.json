@@ -1,0 +1,15 @@
+{
+    "require": {
+        "oasis/slimapp": "^2.4",
+        "guzzlehttp/guzzle": "^6.3",
+        "doctrine/orm": "^2.6",
+        "oasis/doctrine-addon": "^2.0",
+        "lcobucci/jwt": "^3.2"
+    },
+    "name": "goldsdk/api",
+    "autoload": {
+        "psr-4": {
+            "GoldSdk\\Api\\": "src/"
+        }
+    }
+}

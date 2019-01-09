@@ -1,0 +1,75 @@
+imports:
+    - { resource: "panel-request-matchers.yml" }
+    - { resource: "apisdk-verion-mapping.yml" }
+parameters:
+    default.namespace:
+        - Oasis\Mlib\
+        - GoldSdk\Api\
+services:
+    app:
+        properties:
+            logging:
+                path: '%app.dir.log%'
+                level: debug
+            cli:
+                name: api
+                version: '0.1'
+            http:
+                cache_dir: '%app.dir.cache%'
+                routing:
+                    path: '%app.dir.config%/routes.yml'
+                    namespaces:
+                        - GoldSdk\Api\
+                        - GoldSdk\Api\Controllers\
+                twig:
+                    template_dir: '%app.dir.template%'
+                    globals:
+                        app: '@app'
+                injected_args:
+                    - '@em'
+                security:
+                    policies:
+                        panel: "@security.policy.panel_core"
+                    firewalls:
+                        api:
+                            pattern: '@security.request_matcher.panel_core'
+                            policies:
+                                panel: true
+                                anonymous: true
+                            stateless: true
+                            users: "@security.user_provider.panel_signed_request"
+
+                view_handlers: "@handler.view"
+                error_handlers: "@handler.error"
+                middlewares:
+                - "@middleware.access_decider"
+
+    em:
+        class: Doctrine\ORM\EntityManager
+        factory:
+            - GoldSdk\Api\Database\ApiDatabase
+            - getEntityManager
+    handler.view:
+        class: GoldSdk\Api\Middlewares\FallbackViewHandler
+        arguments:
+        - '@app'
+    handler.error:
+        class: GoldSdk\Api\Middlewares\ExceptionHandler
+    middleware.sender_injector:
+        class: GoldSdk\Api\Middlewares\SenderInjectorMiddleware
+    middleware.access_decider:
+        class: GoldSdk\Api\Middlewares\AccessDecisionMiddleware
+
+    security.policy.panel_core:
+        class: GoldSdk\Api\Security\PanelSecurity\SignedRequestPolicy
+    security.user_provider.panel_signed_request:
+        class: GoldSdk\Api\Security\PanelSecurity\SignedRequestSenderProvider
+    security.cors.strategy:
+        class: GoldSdk\Api\Security\CorsStrategy
+        arguments:
+        -
+            pattern: ^(/panel-api/.*$)
+            origins:
+            - localhost:8090
+            headers:
+            - '%app.panel.token_name%'

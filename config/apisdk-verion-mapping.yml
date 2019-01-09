@@ -1,0 +1,4 @@
+parameters:
+    apisdk-verion-mapping:
+        '1.0': V1_0
+        '2.0': V2_0

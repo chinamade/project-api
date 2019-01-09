@@ -1,0 +1,15 @@
+is_debug: true
+dir:
+    log: ./logs
+    data: ./data
+    cache: ./cache
+    template: ./templates
+db:
+    host: localhost
+    port: 3306
+    user: api
+    password: api
+    dbname: api
+memcached:
+    host: localhost
+    port: 11211

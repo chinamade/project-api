@@ -1,0 +1,6 @@
+services:
+    security.request_matcher.panel_core:
+        class: Symfony\Component\HttpFoundation\RequestMatcher
+        arguments:
+            - ^(/panel-api/.*$)
+            - ^api.XXX.com?$

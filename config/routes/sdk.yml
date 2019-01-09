@@ -1,0 +1,6 @@
+sdk.user:
+    prefix: /user
+    resource: sdk/user.yml
+sdk.pay:
+    prefix: /pay
+    resource: sdk/pay.yml

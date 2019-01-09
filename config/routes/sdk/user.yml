@@ -1,0 +1,5 @@
+sdk.user.login:
+    path: /login
+    methods: ["POST","GET"]
+    defaults:
+        _controller: GoldSdk\Api\Controllers\Sdk\V1_0\LoginController::loginAction
